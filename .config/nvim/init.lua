@@ -792,6 +792,82 @@ require('lazy').setup({
     end,
   },
 
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+    cmd = "Neotree",
+    keys = {
+      { "<leader>e", ":Neotree toggle left<CR>", desc = "Neotree Toggle Explorer (Float)" },
+    },
+    opts = {
+      -- 1. 啟用多種來源 (Sources)
+      -- filesystem: 一般檔案樹
+      -- diagnostics: 專門顯示錯誤的視窗 (按鍵可切換)
+      sources = { "filesystem", "diagnostics", "buffers", "git_status" },
+      -- 開啟 LSP 診斷整合 (Metals 報錯會顯示在這裡)
+      diagnostics = {
+        enable = true,
+        show_name = true,
+      },
+      -- 禁用圖示並改用文字
+      default_component_configs = {
+        indent = {
+          with_expanders = true, -- 使用 +/- 來表示展開/收合
+          expander_collapsed = "+",
+          expander_expanded = "-",
+        },          
+        icon = {
+          folder_closed = "+",
+          folder_open = "-",
+          folder_empty = " ",
+          -- 這裡改為空字串，因為檔案名本身就夠清楚了
+          default = "",
+        },
+        -- Git 狀態改用文字簡寫
+        git_status = {
+          symbols = {
+            added     = "[A]",
+            modified  = "[M]",
+            deleted   = "[D]",
+            renamed   = "[R]",
+            untracked = "[?]",
+            ignored   = "[i]",
+            unstaged  = "[u]",
+            staged    = "[s]",
+            conflict  = "[!]",
+          },
+        },
+        -- LSP 診斷改用純文字
+        diagnostics = {
+          symbols = {
+            hint = "H",
+            info = "I",
+            warn = "!",
+            error = "X",
+          },
+          highlights = {
+            hint = "DiagnosticHint",
+            info = "DiagnosticInfo",
+            warn = "DiagnosticWarn",
+            error = "DiagnosticError",
+          },
+        },
+      },
+      filesystem = {
+        filtered_items = {
+          visible = true, -- 顯示隱藏檔案 (如 .bloop, .metals)
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        },
+        follow_current_file = { enabled = true }, -- 當你切換檔案，左邊樹狀圖會自動跳到該位置
+      },
+    },
+  },
+    
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
