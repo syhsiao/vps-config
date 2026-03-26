@@ -814,12 +814,7 @@ require('lazy').setup({
         show_name = true,
       },
       -- 禁用圖示並改用文字
-      default_component_configs = {
-        indent = {
-          with_expanders = true, -- 使用 +/- 來表示展開/收合
-          expander_collapsed = "+",
-          expander_expanded = "-",
-        },          
+      default_component_configs = {          
         icon = {
           folder_closed = "+",
           folder_open = "-",
