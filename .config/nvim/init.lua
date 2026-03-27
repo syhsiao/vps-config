@@ -202,6 +202,47 @@ require('lazy').setup({
         topdelete = { text = '‾' }, ---@diagnostic disable-line: missing-fields
         changedelete = { text = '~' }, ---@diagnostic disable-line: missing-fields
       },
+      on_attach = function(bufnr)
+        -- 我要用 gitsigns 這個插件，請把它讀取進來給我用
+        local gitsigns = require('gitsigns')
+
+        -- 讓你不需要每次設定快捷鍵時都重複寫一堆冗長的參數
+        local function map(mode, l, r, opts)
+          -- 為了把快捷鍵綁定在當前這個 Buffer (檔案)
+
+          -- 如果我呼叫 map 時沒給額外設定，就先幫我準備一個空盒子 {}；如果有給，就用給的那個
+          opts = opts or {}
+          -- 在盒子裡塞入一個規則：這組按鍵只在這個 Buffer 生效
+          opts.buffer = bufnr
+          -- 把所有東西交給 Neovim 官方指令去執行
+          vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+          -- 如果現在是 diff 模式（比對檔案中）
+          if vim.wo.diff then
+            -- 執行 Vim 原始的 ]c 指令
+            vim.cmd.normal({']c', bang = true})
+          else
+            -- 否則執行 gitsigns 的跳轉功能
+            gitsigns.nav_hunk('next')
+          end
+        end, { desc = 'Gitsigns jump to next [c]hange' })
+
+        map('n', '[c', function()
+          if vim.wo.diff then
+            vim.cmd.normal({'[c', bang = true})
+          else
+            gitsigns.nav_hunk('prev')
+          end
+        end, { desc = 'Gitsigns jump to previous [c]hange' })
+
+        -- Actions
+        map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'Gitsigns [s]tage hunk' })
+        map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'Gitsigns [r]eset hunk' })
+        map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'Gitsigns [p]review hunk' })
+      end,
     },
   },
 
