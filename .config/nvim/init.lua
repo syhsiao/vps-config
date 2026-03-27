@@ -848,7 +848,8 @@ require('lazy').setup({
     },
     cmd = "Neotree",
     keys = {
-      { "<leader>e", ":Neotree toggle float<CR>", desc = "Neotree Toggle Explorer (Float)" },
+      { "<leader>e", ":Neotree toggle left<CR>", desc = "Neotree Toggle Explorer (Left)" },
+      { "<leader>E", ":Neotree toggle float<CR>", desc = "Neotree Toggle Explorer (Float)" },
     },
     opts = {
       -- 1. 啟用多種來源 (Sources)
