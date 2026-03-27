@@ -798,6 +798,10 @@ require('lazy').setup({
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
+      -- recommendation:
+      --   https://github.com/nvim-neo-tree/neo-tree.nvim/issues/6
+      --   https://www.reddit.com/r/neovim/comments/warzo4/neotreediagnosticsnvim_a_diagnostics_source_for/
+      "mrbjarksen/neo-tree-diagnostics.nvim"
     },
     cmd = "Neotree",
     keys = {
