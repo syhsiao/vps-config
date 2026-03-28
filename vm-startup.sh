@@ -21,8 +21,10 @@ chmod +x cs
 mv cs /usr/local/bin/
 
 # --- 5. Install AI CLI Tools ---
-npm install -g @anthropic-ai/claude-code
-pip3 install -q -U google-generativeai
+# npm install -g @anthropic-ai/claude-code
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+apt-get install -y nodejs
+npm install -g @google/gemini-cli
 
 # --- 6. Setup Kickstart.nvim (Single File Config) ---
 mkdir -p /root/tmp_git
@@ -43,7 +45,7 @@ EOF
 
 # --- 8. Set Environment Variables ---
 echo 'export ANTHROPIC_API_KEY="YOUR_KEY_HERE"' >> /root/.bashrc
-echo 'export GOOGLE_API_KEY="YOUR_KEY_HERE"' >> /root/.bashrc
+echo 'export GEMINI_API_KEY="YOUR_KEY_HERE"' >> /root/.bashrc
 echo 'export PATH="$PATH:/root/.local/share/coursier/bin"' >> /root/.bashrc
 echo 'export EDITOR=nvim' >> /root/.bashrc
 
