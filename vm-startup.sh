@@ -60,4 +60,8 @@ echo 'export EDITOR=nvim' >> /root/.bashrc
 # --- 9. Pre-install Neovim Plugins (NEW STEP) ---
 nvim --headless "+Lazy! sync" +qa
 
+# --- 10. GitHub
+git config --global user.name $GITHUB_USER_NAME
+git config --global user.email $GITHUB_EMAIL
+
 echo "Kickstart Setup Ready!"
