@@ -61,7 +61,7 @@ echo 'export EDITOR=nvim' >> /root/.bashrc
 nvim --headless "+Lazy! sync" +qa
 
 # --- 10. GitHub
-git config --global user.name $GITHUB_USER_NAME
-git config --global user.email $GITHUB_EMAIL
+git config --file /root/.gitconfig user.name $GITHUB_USER_NAME
+git config --file /root/.gitconfig user.email $GITHUB_EMAIL
 
 echo "Kickstart Setup Ready!"
