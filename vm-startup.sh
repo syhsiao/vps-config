@@ -25,6 +25,7 @@ mv cs /usr/local/bin/
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 apt-get install -y nodejs
 npm install -g @google/gemini-cli
+gemini extensions install https://github.com/gemini-cli-extensions/security --consent
 
 # --- 6. Setup Kickstart.nvim (Single File Config) ---
 mkdir -p /root/tmp_git
