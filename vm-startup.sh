@@ -53,8 +53,6 @@ bind C-a send-prefix
 EOF
 
 # --- 8. Set Environment Variables ---
-echo 'export ANTHROPIC_API_KEY="YOUR_KEY_HERE"' >> /root/.bashrc
-echo 'export GEMINI_API_KEY="YOUR_KEY_HERE"' >> /root/.bashrc
 echo 'export PATH="$PATH:/root/.local/share/coursier/bin"' >> /root/.bashrc
 echo 'export EDITOR=nvim' >> /root/.bashrc
 
