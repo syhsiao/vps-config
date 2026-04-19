@@ -45,21 +45,21 @@ echo 'export PATH="$PATH:/root/.local/share/coursier/bin"' >> /root/.bashrc
 echo 'export PATH="$PATH:/root/.local/bin"' >> /root/.bashrc
 echo 'export EDITOR=nvim' >> /root/.bashrc
 
-# --- 9. Pre-install Neovim Plugins (NEW STEP) ---
-nvim --headless "+Lazy! sync" +qa
-
-# --- 10. GitHub
-git config --file /root/.gitconfig user.name $GITHUB_USER_NAME
-git config --file /root/.gitconfig user.email $GITHUB_EMAIL
-
 # --- 6. Setup Kickstart.nvim & install AI tools ---
 mkdir -p /root/tmp_git
 git clone https://github.com/syhsiao/vps-config.git /root/tmp_git
 cp -r /root/tmp_git/.config /root/
 (
   cd /root/tmp_git
-  ./scripts/install-ai.sh
+  bash ./scripts/install-ai.sh
 ) # Subshell used to keep directory and environment variables unchanged
 rm -rf /root/tmp_git
+
+# --- 9. Pre-install Neovim Plugins (NEW STEP) ---
+nvim --headless "+Lazy! sync" +qa
+
+# --- 10. GitHub
+git config --file /root/.gitconfig user.name $GITHUB_USER_NAME
+git config --file /root/.gitconfig user.email $GITHUB_EMAIL
 
 echo "Kickstart Setup Ready!"
