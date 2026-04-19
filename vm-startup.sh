@@ -52,12 +52,13 @@ bind-key -n 'C-j' if-shell "\$is_vim" 'send-keys C-j' 'select-pane -D'
 bind-key -n 'C-k' if-shell "\$is_vim" 'send-keys C-k' 'select-pane -U'
 bind-key -n 'C-l' if-shell "\$is_vim" 'send-keys C-l' 'select-pane -R'
 
-# 將前綴鍵改為 Ctrl + a:      
-# 1. 取消原本的 Ctrl + b 綁定      
+# Change prefix key to Ctrl + a:
+# 1. Unbind the default Ctrl + b
 unbind C-b      
-# 2. 設定新的前綴鍵為 Ctrl + a      
+# 2. Set the new prefix to Ctrl + a
 set -g prefix C-a      
-# 3. 確保按兩次 Ctrl + a 可以把這個按鍵傳送給內層程式 (例如在 Bash 跳到行首)                                           
+# 3. Enable sending Ctrl + a to underlying programs by pressing it twice
+# (e.g., to move to the beginning of the line in Bash)
 bind C-a send-prefix  
 EOF
 
