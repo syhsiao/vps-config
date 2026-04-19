@@ -54,12 +54,12 @@ bind-key -n 'C-l' if-shell "\$is_vim" 'send-keys C-l' 'select-pane -R'
 
 # Change prefix key to Ctrl + a:
 # 1. Unbind the default Ctrl + b
-unbind C-b      
+unbind C-b
 # 2. Set the new prefix to Ctrl + a
-set -g prefix C-a      
+set -g prefix C-a
 # 3. Enable sending Ctrl + a to underlying programs by pressing it twice
 # (e.g., to move to the beginning of the line in Bash)
-bind C-a send-prefix  
+bind C-a send-prefix
 EOF
 
 # --- 8. Set Environment Variables ---
