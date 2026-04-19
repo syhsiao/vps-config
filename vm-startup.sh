@@ -20,28 +20,6 @@ chmod +x cs
 /cs install metals
 mv cs /usr/local/bin/
 
-# --- 5. Install AI CLI Tools ---
-# npm install -g @anthropic-ai/claude-code
-curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-apt-get install -y nodejs
-npm install -g @google/gemini-cli
-gemini extensions install https://github.com/gemini-cli-extensions/security --consent
-npm install -g drawio-mcp-server
-GEMINI_SETTING="/root/.gemini/settings.json"
-# Ensure file exists and is not empty
-if [ ! -f "$GEMINI_SETTING" ] || [ ! -s "$GEMINI_SETTING" ]; then
-    echo "{}" > "$GEMINI_SETTING"
-fi
-MCP_DRAWIO='{"mcpServers":{"drawio":{"command":"drawio-mcp-server","args":["--editor","--http-port","3000","--extension-port","3333"]}}}'
-mcp_tmp=$(mktemp)
-jq --argjson new_drawio "$MCP_DRAWIO" '. * $new_drawio' "$GEMINI_SETTING" > "$mcp_tmp" && mv "$mcp_tmp" "$GEMINI_SETTING"
-
-# --- 6. Setup Kickstart.nvim (Single File Config) ---
-mkdir -p /root/tmp_git
-git clone https://github.com/syhsiao/vps-config.git /root/tmp_git
-cp -r /root/tmp_git/.config /root/
-rm -rf /root/tmp_git
-
 # --- 7. Configure tmux (Classic Mode) ---
 cat <<EOF > /root/.tmux.conf
 set -g mouse on
@@ -74,11 +52,14 @@ nvim --headless "+Lazy! sync" +qa
 git config --file /root/.gitconfig user.name $GITHUB_USER_NAME
 git config --file /root/.gitconfig user.email $GITHUB_EMAIL
 
-# --- Install Hermes Agent
-# To avoid 'uv not found' errors during installation.
-export PATH="/root/.local/bin:$PATH"
-# Non-interactive installation
-export HOME=/root
-curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash -s -- --skip-setup
+# --- 6. Setup Kickstart.nvim & install AI tools ---
+mkdir -p /root/tmp_git
+git clone https://github.com/syhsiao/vps-config.git /root/tmp_git
+cp -r /root/tmp_git/.config /root/
+(
+  cd /root/tmp_git
+  ./scripts/install-ai.sh
+) # Subshell used to keep directory and environment variables unchanged
+rm -rf /root/tmp_git
 
 echo "Kickstart Setup Ready!"
