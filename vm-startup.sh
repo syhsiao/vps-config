@@ -5,21 +5,6 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y git curl wget unzip build-essential ripgrep fd-find fzf tmux nodejs npm python3-pip tree
 
-# --- Install Latest Neovim (v0.10+) ---
-add-apt-repository ppa:neovim-ppa/unstable -y
-apt-get update
-apt-get install -y neovim
-
-# --- Install Tree-sitter CLI (For Neovim Highlighting) ---
-npm install -g tree-sitter-cli
-
-# --- Install Scala Toolchain (Coursier) ---
-curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > cs
-chmod +x cs
-./cs setup --yes --jvm 21
-/cs install metals
-mv cs /usr/local/bin/
-
 # --- Configure tmux (Classic Mode) ---
 cat <<EOF > /root/.tmux.conf
 set -g mouse on
@@ -45,14 +30,16 @@ echo 'export PATH="$PATH:/root/.local/share/coursier/bin"' >> /root/.bashrc
 echo 'export PATH="$PATH:/root/.local/bin"' >> /root/.bashrc
 echo 'export EDITOR=nvim' >> /root/.bashrc
 
-# --- Setup Kickstart.nvim & install AI tools ---
+# --- Install Kickstart.nvim & AI tools & Scala ---
 mkdir -p /root/tmp_git
 git clone https://github.com/syhsiao/vps-config.git /root/tmp_git
-cp -r /root/tmp_git/.config /root/
 (
   cd /root/tmp_git
+  bash ./scripts/install-nvim.sh
   bash ./scripts/install-ai.sh
+  bash ./scripts/install-scala.sh
 ) # Subshell used to keep directory and environment variables unchanged
+cp -r /root/tmp_git/.config /root/
 rm -rf /root/tmp_git
 
 # --- Pre-install Neovim Plugins (NEW STEP) ---
