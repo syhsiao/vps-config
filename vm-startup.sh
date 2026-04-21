@@ -30,6 +30,9 @@ echo 'export PATH="$PATH:/root/.local/share/coursier/bin"' >> /root/.bashrc
 echo 'export PATH="$PATH:/root/.local/bin"' >> /root/.bashrc
 echo 'export EDITOR=nvim' >> /root/.bashrc
 
+# --- Install Rclone
+curl https://rclone.org/install.sh | sudo bash
+
 # --- Install Kickstart.nvim & AI tools & Scala ---
 mkdir -p /root/tmp_git
 git clone https://github.com/syhsiao/vps-config.git /root/tmp_git
