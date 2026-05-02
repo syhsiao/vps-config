@@ -29,6 +29,8 @@ EOF
 echo 'export PATH="$PATH:/root/.local/share/coursier/bin"' >> /root/.bashrc
 echo 'export PATH="$PATH:/root/.local/bin"' >> /root/.bashrc
 echo 'export EDITOR=nvim' >> /root/.bashrc
+# https://rclone.org/docs/#config-file
+echo 'export RCLONE_CONFIG_VULTR_SPACE_ROOT_FOLDER_ID=$MY_RCLONE_ROOT_FOLDER_ID' >> /root/.bashrc
 
 # --- Install Rclone
 curl https://rclone.org/install.sh | sudo bash
