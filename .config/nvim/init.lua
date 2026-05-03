@@ -242,6 +242,8 @@ require('lazy').setup({
         map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'Gitsigns [s]tage hunk' })
         map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'Gitsigns [r]eset hunk' })
         map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'Gitsigns [p]review hunk' })
+        map('n', '<leader>hd', gitsigns.diffthis, { desc = 'Gitsigns [d]iff against index' })
+        map('n', '<leader>hD', function() gitsigns.diffthis('~') end, { desc = 'Gitsigns [D]iff last commit' })
       end,
     },
   },
